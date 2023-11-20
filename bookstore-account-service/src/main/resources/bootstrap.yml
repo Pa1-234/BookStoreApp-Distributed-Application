@@ -20,12 +20,18 @@ spring:
     consul:
       enabled: false #consul discovery set false, in this profile eureka discovery is enabled.
 
+spring:
+  application:
+    name: bookstore-account-service  # Set your application name
+server:
+  port: 4001  # Set your application port
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost:8761}/eureka/
-    registerWithEureka: false
-    enabled: true #eureka discovery is enabled in this profile
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost:8761}/eureka/  # Set your Eureka server URL
+    enabled: true
   instance:
     prefer-ip-address: false
 
