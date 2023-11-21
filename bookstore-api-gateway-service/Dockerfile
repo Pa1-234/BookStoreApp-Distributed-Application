@@ -1,17 +1,9 @@
-# Use an official OpenJDK runtime as a parent image
 FROM openjdk:8-jdk-alpine
 
-# Set the working directory to /app
-WORKDIR /app
+VOLUME /tmp
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+ARG JAR_FILE
 
-# Build your application with Maven (assuming you have a Maven Wrapper)
-#RUN ./mvnw clean install -DskipTests
+COPY target/${JAR_FILE} gateway-server.jar
 
-# Make port 8761 available to the world outside this container
-EXPOSE 8761
-
-# Run your application using the JAR file
-CMD ["java", "-jar", "target/bookstore-api-gateway-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/gateway-server.jar"]
